@@ -4,6 +4,8 @@ import { useState } from "react";
 import arrowDown from "../../public/down.png";
 import search from "../../public/search.png";
 import Image from "next/image";
+import { useUser } from "./UserContext";
+import carro from "../../public/carro.png";
 
 const links = [
   { name: "Sell", path: "sell" },
@@ -17,6 +19,8 @@ const categoryLinks = [
 ];
 
 export default function Header() {
+  const { user } = useUser();
+
   const [isHidden, setIsHidden] = useState(true);
   let timeoutId;
 
@@ -100,7 +104,7 @@ export default function Header() {
             <div className="flex items-center gap-1 border rounded border-gray-400 py-1 px-2">
               <Image src={search} alt="Search" width={20} height={20} />
               <input
-                className="outline-0"
+                className="outline-0 bg-transparent"
                 type="text"
                 name="search"
                 placeholder="Search..."
@@ -108,13 +112,24 @@ export default function Header() {
             </div>
           </form>
         </div>
-        <div className="flex flex-grow basis-0 flex-row-reverse">
-          <Link
-            className="border border-gray-400 rounded py-1 px-5 hover:bg-neutral-700 hover:text-white duration-300"
-            href="#"
-          >
-            Sign in
-          </Link>
+        <div className="flex gap-5 flex-grow basis-0 flex-row-reverse">
+          <button className="cursor-pointer">
+            <Image src={carro} alt="Store" width={25} height={25} />
+          </button>
+          {user ? (
+            <div>
+              <p>Welcome, Jhon</p>
+            </div>
+          ) : (
+            <div>
+              <Link
+                className="border border-gray-400 rounded py-1 px-5 hover:bg-neutral-700 hover:text-white duration-300"
+                href="signin"
+              >
+                Sign in
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

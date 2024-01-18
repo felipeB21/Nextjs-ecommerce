@@ -1,6 +1,8 @@
+// RootLayout.js
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { UserProvider } from "../components/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,8 +15,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`bg-neutral-50 text-black ${inter.className}`}>
-        <Header />
-        {children}
+        <UserProvider>
+          <Header />
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
